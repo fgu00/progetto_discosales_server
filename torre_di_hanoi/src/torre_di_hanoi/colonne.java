@@ -77,7 +77,7 @@ public class colonne {
                 prova=cerca(0);
                 System.out.println("seleziona la colonna dove vuoi inserire il disco");
                 int t=sc.nextInt();
-                controllomossa(prova,numero-1,t-1);
+                controllomossa(prova,0,t-1);
                 break;
                 
         }
@@ -105,12 +105,13 @@ public class colonne {
             a[colonna].pop();
             
         }
-    }
+    }else{
      System.out.println(metto.getNumero());
             a[colonnaN].push(metto);
             a[colonna].pop();  
             //da togliere
           System.out.println(  a[colonnaN].posto(2).getNumero());
+    }
     }
     }
 
