@@ -30,17 +30,17 @@ public class colonne {
     }
     public void stampa(){
         for(int h=0;h<a[0].size();h++){
-            if(a[0].posto(0)!=null){
+            if(a[0].posto(h)!=null){
             System.out.print("   "+a[0].posto(h).getNumero());
             }else{
             System.out.print("   ");
             }
-            if(a[1].posto(0)!=null){
+            if(a[1].posto(h)!=null){
              System.out.print("           "+a[1].posto(h).getNumero());
             }else{
             System.out.print("            ");
             }
-            if(a[2].posto(0)!=null){
+            if(a[2].posto(h)!=null){
               System.out.print("          "+a[2].posto(h).getNumero());
             }else{
             System.out.print("            ");
@@ -69,7 +69,7 @@ public class colonne {
     }
     }
     public void mossa(){
-        System.out.println("selezionale la colonna con ciu vuoi fare lo spostamento");
+        System.out.println("selezionale la colonna con cui vuoi fare lo spostamento");
         int numero=sc.nextInt();
         switch(numero){
             case 1:
@@ -86,9 +86,7 @@ public class colonne {
         disco trova=null;
         for(int h=0;h<a[colonna].size();h++){
             if(a[colonna].top()!=null){
-                trova=(disco) a[colonna].top();
-                //da togliere
-                System.out.println(trova.getNumero());
+                trova=(disco) a[colonna].mossaP();
                 break;
             }
         }
@@ -96,22 +94,27 @@ public class colonne {
         
     }
     //da fizzare tutto
-    public void controllomossa(disco metto,int colonna,int colonnaN){
-        if(a[colonnaN].posto(a[colonnaN].size()-1)!=null){
-        if(metto.getNumero()<a[colonnaN].posto(a[colonnaN].size()-1).getNumero()){
-            //da togliere
-            System.out.println(metto.getNumero());
-            a[colonnaN].push(metto);
-            a[colonna].pop();
-            
+    public void controllomossa(disco metto,int colonna,int colonnaSpostamento){
+        disco a1=metto;
+        if(a[colonnaSpostamento].posto(0)==null){
+            a[colonnaSpostamento].sostituisci(metto);
+            a[colonna].togli(metto);
         }
-    }else{
-     System.out.println(metto.getNumero());
-            a[colonnaN].push(metto);
-            a[colonna].pop();  
-            //da togliere
-          System.out.println(  a[colonnaN].posto(2).getNumero());
+//        if(a[colonnaN].posto(a[colonnaN].size()-1)!=null){
+//        if(metto.getNumero()<a[colonnaN].posto(a[colonnaN].size()-1).getNumero()){
+//            //da togliere
+//            System.out.println(metto.getNumero());
+//            a[colonnaN].push(metto);
+//            a[colonna].pop();
+//            
+//        }
+//    }else{
+//     System.out.println(metto.getNumero());
+//            a[colonnaN].push(metto);
+//            a[colonna].pop();  
+//            //da togliere
+//          System.out.println(  a[colonnaN].posto(2).getNumero());
     }
     }
-    }
+//    }
 

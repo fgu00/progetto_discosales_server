@@ -21,6 +21,33 @@ public class torre extends pila{
        disco prova= (disco)a.get(k);
         return prova;
     }
+    public disco mossaP(){
+        disco trova=null;
+        for(int j=a.size()-1;j>=0;j--){
+            if(a.get(j)!=null){
+                trova=(disco) a.get(j);
+                
+            }
+        }
+        return trova;
+        
+    }
+    public void togli(disco togli){
+       for(int j=0;j<a.size();j++){
+           if(togli==a.get(j)){
+               a.setElementAt(null, j);
+               j=a.size();
+           }
+       } 
+    }
+    public void sostituisci(disco sostituto){
+        for(int j=a.size()-1;j>0;j--){
+            if(a.get(j)==null){
+                a.setElementAt(sostituto, j);
+                break;
+            }
+        }
+    }
     
    
 }

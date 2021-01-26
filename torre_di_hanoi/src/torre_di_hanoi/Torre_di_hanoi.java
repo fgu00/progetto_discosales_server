@@ -20,6 +20,7 @@ public class Torre_di_hanoi {
       a.stampa();
       a.menu();
       a.stampa();
+     
 
     }
     
