@@ -58,15 +58,19 @@ public class colonne {
         System.out.println("----------------------------------------------------------");
 }
     public void menu(){
+        boolean attiva=true;
+        while(attiva==true){
+            stampa();
     int e=sc.nextInt();
     switch(e){
         case 1:
             mossa();
             break;
         case 2:
-            
+            attiva=false;
             break;
     }
+        }
     }
     public void mossa(){
         System.out.println("selezionale la colonna con cui vuoi fare lo spostamento");
@@ -79,7 +83,20 @@ public class colonne {
                 int t=sc.nextInt();
                 controllomossa(prova,0,t-1);
                 break;
-                
+            case 2:
+                disco prova1=null;
+                prova1=cerca(1);
+                System.out.println("seleziona la colonna dove vuoi inserire il disco");
+                int t1=sc.nextInt();
+                controllomossa(prova1,1,t1-1);
+                break;
+            case 3:
+                disco prova2=null;
+                prova2=cerca(2);
+                System.out.println("seleziona la colonna dove vuoi inserire il disco");
+                int t2=sc.nextInt();
+                controllomossa(prova2,2,t2-1);
+                break; 
         }
     }
     public disco cerca(int colonna){
@@ -93,13 +110,26 @@ public class colonne {
        return trova ;
         
     }
-    //da fizzare tutto
     public void controllomossa(disco metto,int colonna,int colonnaSpostamento){
-        disco a1=metto;
-        if(a[colonnaSpostamento].posto(0)==null){
+        if(a[colonnaSpostamento].posto(2)==null){
             a[colonnaSpostamento].sostituisci(metto);
             a[colonna].togli(metto);
-        }
+        }else{
+            int posizione=0;
+            for(int j=0;j<a[colonnaSpostamento].size();j++){
+                if(a[colonnaSpostamento].posto(j)!=null){
+                    posizione=j;
+                    break;
+                }
+            }
+             if(a[colonnaSpostamento].posto(posizione).getNumero()>metto.getNumero()){
+                 a[colonnaSpostamento].sostituisci(metto);
+                 a[colonna].togli(metto); 
+             }else{
+                 System.out.println("non puoi inserire un disco più grande su uno più piccolo");
+             }  
+            }
+        
 //        if(a[colonnaN].posto(a[colonnaN].size()-1)!=null){
 //        if(metto.getNumero()<a[colonnaN].posto(a[colonnaN].size()-1).getNumero()){
 //            //da togliere

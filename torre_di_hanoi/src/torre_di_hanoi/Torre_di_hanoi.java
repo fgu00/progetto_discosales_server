@@ -17,9 +17,8 @@ public class Torre_di_hanoi {
     public static void main(String[] args) {
             colonne a=new colonne();
       a.dischi(3);
-      a.stampa();
       a.menu();
-      a.stampa();
+    
      
 
     }
