@@ -5,6 +5,9 @@
  */
 package torre_di_hanoi;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -12,20 +15,26 @@ import java.util.Scanner;
  * @author super
  */
 public class colonne {
-   torre[]a;
-   Scanner sc=new Scanner(System.in);
+   private torre[]a;
+   private Scanner sc=new Scanner(System.in);
+   private String nome;
+   private int mosse=0;
+   private int dischi=0;
     public colonne(){
         a=new torre[3];
         a[0]=new torre();
         a[1]=new torre();
         a[2]=new torre();
+        
     }
-    public void dischi(int m){
+    public void dischi(int m,String nome){
         for(int h=0;h<m;h++){
             disco prova=new disco(h);
             a[0].push(prova);
             a[1].push(null);
             a[2].push(null);
+            this.nome=nome;
+            dischi=m;
         }
     }
     public void stampa(){
@@ -57,7 +66,7 @@ public class colonne {
         System.out.println("2 per uscire");
         System.out.println("----------------------------------------------------------");
 }
-    public void menu(){
+    public void menu() throws IOException{
         int contatore=0;
         boolean attiva=true;
         while(attiva==true){
@@ -114,7 +123,7 @@ public class colonne {
         
     }
     public void controllomossa(disco metto,int colonna,int colonnaSpostamento){
-        if(a[colonnaSpostamento].posto(2)==null){
+        if(a[colonnaSpostamento].posto(a[colonnaSpostamento].size()-1)==null){
             a[colonnaSpostamento].sostituisci(metto);
             a[colonna].togli(metto);
         }else{
@@ -135,7 +144,7 @@ public class colonne {
         
 
     }
-    public boolean vincita(int numero){
+    public boolean vincita(int numero) throws IOException{
         int vincita=0;
         for(int h=0;h<a[1].size()-1;h++){
             if(a[1].posto(h)!=null){
@@ -144,9 +153,11 @@ public class colonne {
             }
         }
         }
-        if(vincita==2){
+        if(vincita==dischi-1){
             stampa();
             System.out.println("hai vinto in : "+numero+" mosse");
+            mosse=numero;
+            salva();
             return false;
         }
         for(int h=0;h<a[2].size()-1;h++){
@@ -156,13 +167,22 @@ public class colonne {
             }
         }
         }
-        if(vincita==2){
+        if(vincita==dischi-1){
             stampa();
             System.out.println("hai vinto in : "+numero+" mosse");
+            mosse=numero;
+            salva();
             return false;
         }
        return true;
         
+    }
+    public void salva() throws IOException{
+        File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.txt");
+        FileWriter scrivi=new FileWriter(nuovo);
+        scrivi.write(nome+" ha vinto in "+mosse+" con un totale di "+dischi+" dischi");
+        scrivi.flush();
+        scrivi.close();
     }
     }
 

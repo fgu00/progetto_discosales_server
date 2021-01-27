@@ -21,7 +21,9 @@ public class Torre_di_hanoi {
       Scanner sc=new Scanner(System.in);
         System.out.println("con quanti dischi vuoi giocare ?");
         int numero=sc.nextInt();
-      a.dischi(numero);
+        System.out.println("inserisic il tuo nome");
+        String nome=sc.next();
+      a.dischi(numero,nome);
       a.menu();
     
      
