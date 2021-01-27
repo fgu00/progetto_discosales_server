@@ -17,7 +17,6 @@ public class torre extends pila{
        
     }
     public disco posto(int k){
-        //System.out.println(a.get(0)+"mmm");
        disco prova= (disco)a.get(k);
         return prova;
     }
@@ -41,7 +40,7 @@ public class torre extends pila{
        } 
     }
     public void sostituisci(disco sostituto){
-        for(int j=a.size()-1;j>0;j--){
+        for(int j=a.size()-1;j>=0;j--){
             if(a.get(j)==null){
                 a.setElementAt(sostituto, j);
                 break;

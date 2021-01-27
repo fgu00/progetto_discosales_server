@@ -58,6 +58,7 @@ public class colonne {
         System.out.println("----------------------------------------------------------");
 }
     public void menu(){
+        int contatore=0;
         boolean attiva=true;
         while(attiva==true){
             stampa();
@@ -65,6 +66,8 @@ public class colonne {
     switch(e){
         case 1:
             mossa();
+            attiva=vincita(contatore);
+            contatore++;
             break;
         case 2:
             attiva=false;
@@ -130,21 +133,37 @@ public class colonne {
              }  
             }
         
-//        if(a[colonnaN].posto(a[colonnaN].size()-1)!=null){
-//        if(metto.getNumero()<a[colonnaN].posto(a[colonnaN].size()-1).getNumero()){
-//            //da togliere
-//            System.out.println(metto.getNumero());
-//            a[colonnaN].push(metto);
-//            a[colonna].pop();
-//            
-//        }
-//    }else{
-//     System.out.println(metto.getNumero());
-//            a[colonnaN].push(metto);
-//            a[colonna].pop();  
-//            //da togliere
-//          System.out.println(  a[colonnaN].posto(2).getNumero());
+
+    }
+    public boolean vincita(int numero){
+        int vincita=0;
+        for(int h=0;h<a[1].size()-1;h++){
+            if(a[1].posto(h)!=null){
+            if(a[1].posto(h).getNumero()<a[1].posto(h+1).getNumero()){
+                vincita++;
+            }
+        }
+        }
+        if(vincita==2){
+            stampa();
+            System.out.println("hai vinto in : "+numero);
+            return false;
+        }
+        for(int h=0;h<a[2].size()-1;h++){
+            if(a[2].posto(h)!=null){
+            if(a[2].posto(h).getNumero()<a[2].posto(h+1).getNumero()){
+                vincita++;
+            }
+        }
+        }
+        if(vincita==2){
+            stampa();
+            System.out.println("hai vinto in : "+numero);
+            return false;
+        }
+       return true;
+        
     }
     }
-//    }
+
 
