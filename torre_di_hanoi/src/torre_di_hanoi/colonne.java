@@ -33,7 +33,7 @@ public class colonne {
             if(a[0].posto(h)!=null){
             System.out.print("   "+a[0].posto(h).getNumero());
             }else{
-            System.out.print("   ");
+            System.out.print("    ");
             }
             if(a[1].posto(h)!=null){
              System.out.print("           "+a[1].posto(h).getNumero());
@@ -43,7 +43,7 @@ public class colonne {
             if(a[2].posto(h)!=null){
               System.out.print("          "+a[2].posto(h).getNumero());
             }else{
-            System.out.print("            ");
+            System.out.print("           ");
    
 }
         System.out.println(" ");
@@ -146,7 +146,7 @@ public class colonne {
         }
         if(vincita==2){
             stampa();
-            System.out.println("hai vinto in : "+numero);
+            System.out.println("hai vinto in : "+numero+" mosse");
             return false;
         }
         for(int h=0;h<a[2].size()-1;h++){
@@ -158,7 +158,7 @@ public class colonne {
         }
         if(vincita==2){
             stampa();
-            System.out.println("hai vinto in : "+numero);
+            System.out.println("hai vinto in : "+numero+" mosse");
             return false;
         }
        return true;
