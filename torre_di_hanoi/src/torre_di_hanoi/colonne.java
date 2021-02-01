@@ -23,7 +23,9 @@ public class colonne {
    private String nome;
    private int mosse=0;
    private int dischi=0;
-   private ArrayList <String>lista =new ArrayList<String>();   
+   private ArrayList <String>lista =new ArrayList<String>();  
+   private ArrayList <String>giacata =new ArrayList<String>(); 
+   private String cronologia="";
     public colonne(){
         a=new torre[3];
         a[0]=new torre();
@@ -80,6 +82,8 @@ public class colonne {
     switch(e){
         case 1:
             mossa();
+            giacata.add(cronologia);
+            cronologia="";
             attiva=vincita(contatore);
             contatore++;
             break;
@@ -131,6 +135,7 @@ public class colonne {
         if(a[colonnaSpostamento].posto(a[colonnaSpostamento].size()-1)==null){
             a[colonnaSpostamento].sostituisci(metto);
             a[colonna].togli(metto);
+            cronologia=nome+" ha spostato il disco "+metto.getNumero()+" dalla colonna "+(colonna+1)+" alla colonna "+(colonnaSpostamento+1);
         }else{
             int posizione=0;
             for(int j=0;j<a[colonnaSpostamento].size();j++){
@@ -138,12 +143,15 @@ public class colonne {
                     posizione=j;
                     break;
                 }
+                
             }
              if(a[colonnaSpostamento].posto(posizione).getNumero()>metto.getNumero()){
                  a[colonnaSpostamento].sostituisci(metto);
                  a[colonna].togli(metto); 
+                 cronologia=nome+" ha spostato il disco "+metto.getNumero()+" dalla colonna "+(colonna+1)+" alla colonna "+(colonnaSpostamento+1);
              }else{
                  System.out.println("non puoi inserire un disco più grande su uno più piccolo");
+                 cronologia=nome+" ha eseguito una mossa non valida";
              }  
             }
         
@@ -162,6 +170,8 @@ public class colonne {
             stampa();
             System.out.println("hai vinto in : "+numero+" mosse");
             mosse=numero;
+            cronologia=nome+" ha vinto ";
+            giacata.add(cronologia);
             salva();
             return false;
         }
@@ -176,6 +186,8 @@ public class colonne {
             stampa();
             System.out.println("hai vinto in : "+numero+" mosse");
             mosse=numero;
+            cronologia=nome+" ha vinto ";
+              giacata.add(cronologia);
             salva();
             return false;
         }
@@ -188,12 +200,24 @@ public class colonne {
         FileWriter scrivi=new FileWriter(nuovo);
         for(int e=0;e<lista.size();e++){
             scrivi.write(lista.get(e));
-            scrivi.write("\n");
+           // scrivi.write("\n");
         }
         scrivi.write(nome+" ha vinto in "+mosse+" mosse con un totale di "+dischi+" dischi");
+        scrivi.write("\n");
         scrivi.flush();
         scrivi.close();
+         File giocatore=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\"+nome+".txt");
+          FileWriter classifica=new FileWriter(giocatore);
+         for(int k=0;k<giacata.size();k++){
+          classifica.write(giacata.get(k));
+          classifica.write("\n");
+          
+         }
+         classifica.flush();
+         classifica.close();
+      
     }
+    
     public void leggi() throws FileNotFoundException{
          File nuovo=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
        // File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.txt");
