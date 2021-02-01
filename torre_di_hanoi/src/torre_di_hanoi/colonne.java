@@ -200,13 +200,14 @@ public class colonne {
         FileWriter scrivi=new FileWriter(nuovo);
         for(int e=0;e<lista.size();e++){
             scrivi.write(lista.get(e));
-           // scrivi.write("\n");
+            scrivi.write("\n");
         }
         scrivi.write(nome+" ha vinto in "+mosse+" mosse con un totale di "+dischi+" dischi");
         scrivi.write("\n");
         scrivi.flush();
         scrivi.close();
          File giocatore=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\"+nome+".txt");
+        // File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\"+nome+".txt");
           FileWriter classifica=new FileWriter(giocatore);
          for(int k=0;k<giacata.size();k++){
           classifica.write(giacata.get(k));
