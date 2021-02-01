@@ -6,8 +6,11 @@
 package torre_di_hanoi;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -20,6 +23,7 @@ public class colonne {
    private String nome;
    private int mosse=0;
    private int dischi=0;
+   private ArrayList <String>lista =new ArrayList<String>();   
     public colonne(){
         a=new torre[3];
         a[0]=new torre();
@@ -67,6 +71,7 @@ public class colonne {
         System.out.println("----------------------------------------------------------");
 }
     public void menu() throws IOException{
+        leggi();
         int contatore=0;
         boolean attiva=true;
         while(attiva==true){
@@ -178,11 +183,25 @@ public class colonne {
         
     }
     public void salva() throws IOException{
-        File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.txt");
+        File nuovo=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
+       // File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.txt");
         FileWriter scrivi=new FileWriter(nuovo);
-        scrivi.write(nome+" ha vinto in "+mosse+" con un totale di "+dischi+" dischi");
+        for(int e=0;e<lista.size();e++){
+            scrivi.write(lista.get(e));
+            scrivi.write("\n");
+        }
+        scrivi.write(nome+" ha vinto in "+mosse+" mosse con un totale di "+dischi+" dischi");
         scrivi.flush();
         scrivi.close();
+    }
+    public void leggi() throws FileNotFoundException{
+         File nuovo=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
+       // File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.txt");
+       Scanner leggi=new Scanner(nuovo);
+       while(leggi.hasNextLine()){
+       String linea=leggi.nextLine();
+           lista.add(linea);
+       }
     }
     }
 

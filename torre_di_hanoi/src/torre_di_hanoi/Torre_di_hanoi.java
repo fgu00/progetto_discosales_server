@@ -5,6 +5,7 @@
  */
 package torre_di_hanoi;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -16,7 +17,7 @@ public class Torre_di_hanoi {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
       colonne a=new colonne();
       Scanner sc=new Scanner(System.in);
         System.out.println("con quanti dischi vuoi giocare ?");
