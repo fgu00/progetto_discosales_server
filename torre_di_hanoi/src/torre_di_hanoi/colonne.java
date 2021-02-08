@@ -30,6 +30,7 @@ public class colonne {
     private ArrayList<Integer>punteggio=new ArrayList<Integer>();
     private ArrayList<String>scarto=new ArrayList<String>();
     private ArrayList<Integer>Ndischi=new ArrayList<Integer>();
+    private boolean esiste=false;
     public colonne(){
         a=new torre[3];
         a[0]=new torre();
@@ -177,6 +178,7 @@ public class colonne {
             mosse=numero;
             cronologia=nome+" ha vinto ";
             giacata.add(cronologia);
+            controllo();
             salva();
             return false;
         }
@@ -193,6 +195,7 @@ public class colonne {
             mosse=numero;
             cronologia=nome+" ha vinto ";
               giacata.add(cronologia);
+              controllo();
             salva();
             return false;
         }
@@ -207,9 +210,10 @@ public class colonne {
             scrivi.write(lista.get(e));
             scrivi.write("\n");
         }
-        scrivi.write(".");
+        if(esiste==false){
         scrivi.write(nome+" ha vinto in "+mosse+" mosse con un totale di "+dischi+" dischi");
         scrivi.write("\n");
+        }
         scrivi.flush();
         scrivi.close();
          File giocatore=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\"+nome+".txt");
@@ -236,7 +240,9 @@ public class colonne {
        }
     }
     public void classifica() throws FileNotFoundException, IOException{
-     FileReader leggi=new FileReader("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt"); 
+     FileReader leggi=new FileReader("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
+     boolean classi=false;
+     while(classi==false){
      boolean cerca=true;
      while(cerca==true){
      boolean ciclo=true;
@@ -251,7 +257,8 @@ public class colonne {
          if(nome!='\n'){
          giocatore= (giocatore+nome); 
      }else{
-             cerca=false;
+             
+             
          }
        }else{
            ciclo=false;
@@ -260,28 +267,31 @@ public class colonne {
        scarto.add(giocatore);    
      }
     
-     int conta=0;
-     for(int n=11;n<scarto.size();n++){
-       if(n==(11*conta)){
-           persone.add(scarto.get(n));
-           conta++;
+     
+     for(int n=0;n<scarto.size();n++){
+       if(n==(0)){
+           persone.add(scarto.get(0));
+           
        }
-       if(n==(4*conta)){
+       if(n==(4)){
            int o=Integer.parseInt(scarto.get(n));
            punteggio.add(o);
        }
-       if(n==(10*conta)){
+       if(n==(10)){
            Ndischi.add(Integer.parseInt(scarto.get(n)));
+           
        }
      }
+     }
      leggi.close();
+    
     }
     public void controllo(){
       for(int n=0;n<persone.size();n++){
           if(nome.equals(persone.get(n))){
            if(mosse>punteggio.get(n)){
              if(dischi>Ndischi.get(n)){
-                 
+                lista.remove(n);
              }  
            }else{
               if(dischi<=Ndischi.get(n)){
