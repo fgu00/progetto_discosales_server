@@ -220,6 +220,7 @@ public class colonne {
           classifica.write("\n");
           
          }
+         
          classifica.flush();
          classifica.close();
       
@@ -242,13 +243,16 @@ public class colonne {
      String giocatore = "";
      while(ciclo==true){
        char nome=(char) leggi.read();
-       if(nome=='.'){
+       if(nome=='\uFFFF'){
            cerca=false;
+           ciclo=false;
        }
        if(nome!=' '){
          if(nome!='\n'){
          giocatore= (giocatore+nome); 
-     }
+     }else{
+             cerca=false;
+         }
        }else{
            ciclo=false;
        }
