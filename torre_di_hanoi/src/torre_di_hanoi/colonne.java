@@ -5,6 +5,7 @@
  */
 package torre_di_hanoi;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -80,6 +81,7 @@ public class colonne {
     public void menu() throws IOException{
         leggi();
         classifica();
+        scelta();
         int contatore=0;
         boolean attiva=true;
         while(attiva==true){
@@ -153,7 +155,7 @@ public class colonne {
             }
              if(a[colonnaSpostamento].posto(posizione).getNumero()>metto.getNumero()){
                  a[colonnaSpostamento].sostituisci(metto);
-                 a[colonna].togli(metto); 
+                 a[colonna].togli(metto);
                  cronologia=nome+" ha spostato il disco "+metto.getNumero()+" dalla colonna "+(colonna+1)+" alla colonna "+(colonnaSpostamento+1);
              }else{
                  System.out.println("non puoi inserire un disco più grande su uno più piccolo");
@@ -174,7 +176,7 @@ public class colonne {
         }
         if(vincita==dischi-1){
             stampa();
-            System.out.println("hai vinto in : "+numero+" mosse");
+            System.out.println("hai vinto in : "+(numero+1)+" mosse");
             mosse=numero;
             cronologia=nome+" ha vinto ";
             giacata.add(cronologia);
@@ -191,11 +193,11 @@ public class colonne {
         }
         if(vincita==dischi-1){
             stampa();
-            System.out.println("hai vinto in : "+numero+" mosse");
+            System.out.println("hai vinto in : "+(numero+1)+" mosse");
             mosse=numero;
             cronologia=nome+" ha vinto ";
-              giacata.add(cronologia);
-              controllo();
+            giacata.add(cronologia);
+            controllo();
             salva();
             return false;
         }
@@ -203,8 +205,8 @@ public class colonne {
         
     }
     public void salva() throws IOException{
-        File nuovo=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
-       // File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.txt");
+       // File nuovo=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
+       File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.TXT");
         FileWriter scrivi=new FileWriter(nuovo);
         for(int e=0;e<lista.size();e++){
             scrivi.write(lista.get(e));
@@ -216,8 +218,8 @@ public class colonne {
         }
         scrivi.flush();
         scrivi.close();
-         File giocatore=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\"+nome+".txt");
-        // File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\"+nome+".txt");
+         //File giocatore=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\"+nome+".txt");
+         File giocatore=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\"+nome+".TXT");
           FileWriter classifica=new FileWriter(giocatore);
          for(int k=0;k<giacata.size();k++){
           classifica.write(giacata.get(k));
@@ -231,8 +233,8 @@ public class colonne {
     }
     
     public void leggi() throws FileNotFoundException{
-         File nuovo=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
-       // File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.txt");
+       //  File nuovo=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
+       File nuovo=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.TXT");
        Scanner leggi=new Scanner(nuovo);
        while(leggi.hasNextLine()){
        String linea=leggi.nextLine();
@@ -240,69 +242,103 @@ public class colonne {
        }
     }
     public void classifica() throws FileNotFoundException, IOException{
-     FileReader leggi=new FileReader("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
-     boolean classi=false;
-     while(classi==false){
+    // FileReader a=new FileReader("C:\\Users\\russo.salvatore\\Desktop\\classifica\\vincitori.txt");
+      FileReader a=new FileReader("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\vincitori.TXT");
+         BufferedReader leggi=new BufferedReader(a);
      boolean cerca=true;
      while(cerca==true){
-     boolean ciclo=true;
-     String giocatore = "";
-     while(ciclo==true){
-       char nome=(char) leggi.read();
-       if(nome=='\uFFFF'){
-           cerca=false;
-           ciclo=false;
+       String nome1=leggi.readLine();
+       if(nome1==null){
+           break;
        }
-       if(nome!=' '){
-         if(nome!='\n'){
-         giocatore= (giocatore+nome); 
-     }else{
-             
-             
-         }
-       }else{
-           ciclo=false;
+      String []n=nome1.split(" ");
+      for(int i=0;i<n.length;i++){
+          scarto.add(n[i]); 
+          
+      }    
        }
-     }
-       scarto.add(giocatore);    
-     }
-    
      
-     for(int n=0;n<scarto.size();n++){
-       if(n==(0)){
-           persone.add(scarto.get(0));
+        cerca();
+      leggi.close();
+    
+     }
+      
+    
+    public void controllo(){
+        for(int n=0;n<persone.size();n++){
+          if(nome.equals(persone.get(n))){
+           if(mosse<=punteggio.get(n)){
+                lista.remove(n);
+            }  
+          }  
+        } 
+      }   
+   
+      
+    
+    public void cerca(){
+        int conta=0;
+       for(int n=0;n<scarto.size()-1;n++){
+       if(n==(0+conta)){
+           persone.add(scarto.get(n));
            
        }
-       if(n==(4)){
+       if(n==(4+conta)){
            int o=Integer.parseInt(scarto.get(n));
            punteggio.add(o);
        }
-       if(n==(10)){
+       if(n==(10+conta)){
            Ndischi.add(Integer.parseInt(scarto.get(n)));
+           conta=conta+12;
            
        }
-     }
-     }
-     leggi.close();
-    
+     }  
     }
-    public void controllo(){
-      for(int n=0;n<persone.size();n++){
-          if(nome.equals(persone.get(n))){
-           if(mosse>punteggio.get(n)){
-             if(dischi>Ndischi.get(n)){
-                lista.remove(n);
-             }  
-           }else{
-              if(dischi<=Ndischi.get(n)){
-               for(int f=0;f<giacata.size();f++){
-                   giacata.remove(f);
-               }   
-              } 
-           }   
-          }
-      }  
+    public void scelta() throws FileNotFoundException, IOException{
+        boolean ciclo=true;
+        while(ciclo==true){
+        System.out.println("1 per avere la classifica");
+        System.out.println("2 per cercare un giocatore");
+        System.out.println("3 per giocare");
+        int scelta=sc.nextInt();
+        switch(scelta){
+            case 1:
+                for(int k=0;k<lista.size();k++){
+                    System.out.println(lista.get(k));
+                }
+                System.out.println(" ");
+            break;
+            case 2:
+                System.out.println("inserisci il nome del giocatore");
+                String nome=sc.next();
+                for(int y=0;y<persone.size();y++){
+                    if(nome.equals(persone.get(y))){
+                        System.out.println(lista.get(y));
+                        // File f1=new File("C:\\Users\\russo.salvatore\\Desktop\\classifica\\"+nome+".txt");
+                File f1=new File("C:\\Users\\super\\OneDrive\\Desktop\\classifica\\"+nome+".TXT");
+                 FileReader a=new FileReader(f1);
+                BufferedReader leggi=new BufferedReader(a);
+                String s=leggi.readLine();
+                while(s!=null){
+                    System.out.println(s);
+                    s=leggi.readLine(); 
+                }
+                leggi.close();
+                a.close();
+                break;
+                    }
+                    System.out.println(" ");
+                
+                    
+                }
+                
+            break;
+            case 3:
+                ciclo=false;
+                break;
+        }
     }
+}
 }
 
 
